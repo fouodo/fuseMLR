@@ -1,8 +1,11 @@
+[![Travis Build Status](https://travis-ci.org/imbs-hl/fuseMLR.svg?branch=master)](https://travis-ci.org/imbs-hl/fuseMLR)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/imbs-hl/fuseMLR?branch=master&svg=true)](https://ci.appveyor.com/project/fouodo/fuseMLR)
+[![Coverage Status](https://coveralls.io/repos/github/imbs-hl/fuseMLR/badge.svg?branch=master)](https://coveralls.io/github/imbs-hl/fuseMLR?branch=master)
 ### fuseMLR
 Cesaire J. K. Fouodo
 
 ### Introduction
-This R package offers a unique approach to integrate multiple machine learning models. Users can train various machine learning models on different data entities, each representing distinct data collection layers. These models are then combined into a single meta-learner using a super learner framework. When making predictions for new data, the package leverages predictions from each layer, aggregating them to produce a final prediction.
+This R package offers a unique approach to integrating multiple machine-learning models. Users can train various machine learning models on different data entities, each representing distinct data collection layers. These models are combined into a single meta-learner using a meta-learner framework. When making predictions for new data, the package leverages predictions from each layer, aggregating them to produce a final prediction.
 
 ### Installation
 Installation from Github:
