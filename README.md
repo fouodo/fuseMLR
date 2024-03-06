@@ -20,7 +20,7 @@ For usage in R, see ?fuseMLR in R. Most importantly, see the Examples section.
 
 The provided example, utilizing simulated data, mirrors a common scenario in multi-omics analysis. It involves data collected from three distinct layers (methylation, gene expression, and protein expression), with disease status serving as the response variable. Initially, the data entities are consolidated into a single object. Subsequently, the learner arguments (such as \texttt{ranger}) and feature selection parameters for each entity are specified. Following model training for both the entity-level models and the meta-learner, predictions can be generated for new datasets.
 
-#### Prepare entities.
+Prepare entities.
 ```R  
 data(entities)
 data(disease)
@@ -33,7 +33,7 @@ entity_obj <- add(object = entity_obj,
                       layer = "proteinexpr",
                        data = entities$proteinexpr)
 ```
-#### Prepare learner arguments
+Prepare learner arguments
 ```R
  lrnarg_obj <- lrnarg(object = list(probability = TRUE),
                        layer = "methylation")
@@ -44,7 +44,7 @@ entity_obj <- add(object = entity_obj,
                     layer = "proteinexpr",
                     param = list(probability = TRUE))
 ```
-#### Prepare variable selection arguments
+Prepare variable selection arguments
 ```R
  varselectarg_obj <- varselectarg(object = list(type = "probability",
                                                  mtry.prop = 0.4),
@@ -56,7 +56,7 @@ entity_obj <- add(object = entity_obj,
                           layer = "proteinexpr",
                           param = list(type = "probability", mtry.prop = 0.3))
 ```
-#### Train layer and meta learner
+Train layer and meta learner
 ```R
 my_meta_lnr <- meta_lnr(data = entity_obj,
                         target = disease,
@@ -71,9 +71,8 @@ my_meta_lnr <- meta_lnr(data = entity_obj,
                                                final_learner_args = list(mtry = 1,
                                                                             probability = TRUE)))
 ```
-#### Predict using the meta learner
+Predict using the meta learner
 ```R
- ## Predict using the meta learner
  data(test_entities)
  data(test_disease)
  my_meta_predictions <- predict(object = my_meta_lnr, data = test_entities)
