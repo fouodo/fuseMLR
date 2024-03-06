@@ -11,7 +11,7 @@
 #'                           layer = "methylation")
 lrnarg <- function(object, layer){
   if(!missing(layer)&!(missing(object))){
-    object <- list(layer = object)
+    object <- list(object)
     names(object) <- layer
   } else {
     object <- list()
@@ -47,11 +47,13 @@ add.lrnarg <- function(object, layer, param, ...){
     if(layer %in% names(object)){
       stop("Existing entity for the given layer. Please remove it first.")
     } else {
-      object <- c(object, param)
-      names(object)[length(object)] <- layer
+      names_obj <- names(object)
+      print(names_obj)
+      object <- c(object, list(param))
+      names(object) <- c(names_obj, layer)
     }
   }
-  class(object) <- class_obj
+  class(object) <- c("lrnarg", "list")
   return(object)
 }
 
@@ -84,22 +86,4 @@ remove.lrnarg <- function(object, layer, ...){
     }
   }
   return(object)
-}
-
-#' Print object of class lrnarg.
-#'
-#' @param x object to be printed.
-#' @param ... More arguments to be passed to further function.
-#'
-#' @export
-#'
-#' @examples
-#' test_lrnarg <- lrnarg(object = list(probability = TRUE),
-#'                           layer = "methylation")
-#' test_lrnarg <- add(object = test_lrnarg,
-#'                    layer = "genexpr",
-#'                    list(probability = TRUE))
-#' print(test_lrnarg)
-print.lrnarg <- function(x, ...){
-  return(x)
 }

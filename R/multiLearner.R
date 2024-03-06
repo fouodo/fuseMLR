@@ -22,25 +22,48 @@
 #'    \code{model} \tab The fitted model.
 #'  }
 #' @export
-#'
+#' @include miscellaneous.entitty.R
 #' @examples
-#' data(entities)
-#' data(disease)
+#' ## In this example, we prepare three entities, arguments of
+#' ## ranger leaner and arguments of Boruta variable selection algorithm at each
+#' ## layer.
+#' ## Prepare entities.
+#' entity_obj <- entity(object = entities$methylation,
+#'                         layer = "methylation")
+#' entity_obj <- add(object = entity_obj,
+#'                      layer = "genexpr",
+#'                       data = entities$genexpr)
+#' entity_obj <- add(object = entity_obj,
+#'                      layer = "proteinexpr",
+#'                       data = entities$proteinexpr)
+#' ## Prepare learner arguments.
+#' lrnarg_obj <- lrnarg(object = list(probability = TRUE),
+#'                       layer = "methylation")
+#' lrnarg_obj <- add(object = lrnarg_obj,
+#'                    layer = "genexpr",
+#'                    param = list(probability = TRUE))
+#' lrnarg_obj <- add(object = lrnarg_obj,
+#'                    layer = "proteinexpr",
+#'                    param = list(probability = TRUE))
+#' ## Prepare variable selection arguments.
+#' varselectarg_obj <- varselectarg(object = list(type = "probability",
+#'                                                 mtry.prop = 0.4),
+#'                                   layer = "methylation")
+#' varselectarg_obj <- add(object = varselectarg_obj,
+#'                          layer = "genexpr",
+#'                          param = list(type = "probability", mtry.prop = 0.5))
+#' varselectarg_obj <- add(object = varselectarg_obj,
+#'                          layer = "proteinexpr",
+#'                          param = list(type = "probability", mtry.prop = 0.3))
+#' ## Train machine learning models.
 #' set.seed(321)
-#' my_multiLearner <- multiLearner(data = entities,
-#' target = disease,
-#' learner = "ranger",
-#' learner_args = list(methylation = list(probability = TRUE),
-#'                     genexpr = list(probability = TRUE),
-#'                     proteinexpr = list(probability = TRUE)),
-#' var_selec = "Boruta_ext",
-#' var_selec_arg = list(methylation = list(type = "probability",
-#'                                         mtry.prop = 0.4),
-#'                      genexpr = list(type = "probability",
-#'                                     mtry.prop = 0.5),
-#'                      proteinexpr = list(type = "probability",
-#'                                         mtry.prop = 0.3)))
-#' ## Predict using the super learner
+#' my_multiLearner <- multiLearner(data = entity_obj,
+#'                                 target = disease,
+#'                                 learner = "ranger",
+#'                                 learner_args = lrnarg_obj,
+#'                                 var_selec = "Boruta_ext",
+#'                                 var_selec_arg = varselectarg_obj)
+#' ## Predict using the meta learner.
 #' data(test_entities)
 #' predict(object = my_multiLearner, data = test_entities)
 multiLearner <- function(data,

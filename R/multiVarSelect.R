@@ -44,7 +44,7 @@ multiVarSelect <- function(data,
     checkmate::assert_true(length(target) == nrow(entity))
   })
 
-  ## Consistency between learner's arguments and ranger's arguments
+  ## Consistency between learner's arguments and learner's arguments
   len_var_selec_arg <- if (length(var_selec_arg) == 0) {
     length(data)
   } else {

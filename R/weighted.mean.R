@@ -1,4 +1,4 @@
-#' Super learner using weighted mean. This function assigns weights to models.
+#' Meta learner using weighted mean. This function assigns weights to models.
 #'
 #' @param multilrn Model entities.
 #' @param weight Weights of Model entities.

@@ -22,9 +22,9 @@ Object from class \code{varselectarg}.
 This function will add a new list of argument to the current object given as parameter.
 }
 \examples{
-test_varselectarg <- lrnarg(object = list(probability = TRUE),
-                          layer = "methylation")
+test_varselectarg <- varselectarg(object = list(probability = TRUE),
+                         layer = "methylation")
 test_varselectarg <- add(object = test_varselectarg,
-                   layer = "genexpr",
-                   list(probability = TRUE))
+                  layer = "genexpr",
+                  param = list(probability = TRUE))
 }

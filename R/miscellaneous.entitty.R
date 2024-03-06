@@ -12,7 +12,7 @@
 #'                           layer = "methylation")
 entity <- function(object, layer){
   if(!missing(layer)&!(missing(object))){
-    object <- list(layer = object)
+    object <- list(object)
     names(object) <- layer
   } else {
     object <- list()
@@ -33,9 +33,9 @@ entity <- function(object, layer){
 #'
 #' @examples
 #' data(entities)
-#' test_entities <- entity(object = entities$methylation,
+#' entity_obj <- entity(object = entities$methylation,
 #'                           layer = "methylation")
-#' test_entities <- add(object = test_entities,
+#' entity_obj <- add(object = entity_obj,
 #'                    layer = "genexpr",
 #'                    data = entities$genexpr)
 add.entity <- function(object, layer, data, ...){

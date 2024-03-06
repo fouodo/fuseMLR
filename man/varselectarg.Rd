@@ -18,6 +18,7 @@ Returns an object of class \code{varselectarg}.
 Constructor of argument object to be used by the variable selection at each layer.
 }
 \examples{
-my_varselectarg <- varselectarg(object = list(probability = TRUE),
+my_varselectarg <- varselectarg(object = list(type = "probability",
+                                        mtry.prop = 0.4),
                           layer = "methylation")
 }

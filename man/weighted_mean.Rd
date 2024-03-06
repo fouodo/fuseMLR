@@ -2,7 +2,7 @@
 % Please edit documentation in R/weighted.mean.R
 \name{weighted_mean}
 \alias{weighted_mean}
-\title{Super learner using weighted mean. This function assigns weights to models.}
+\title{Meta learner using weighted mean. This function assigns weights to models.}
 \usage{
 weighted_mean(multilrn, weight)
 }
@@ -15,5 +15,5 @@ weighted_mean(multilrn, weight)
 A list containing a final learner, a final model and layer models.
 }
 \description{
-Super learner using weighted mean. This function assigns weights to models.
+Meta learner using weighted mean. This function assigns weights to models.
 }

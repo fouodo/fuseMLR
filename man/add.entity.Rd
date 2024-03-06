@@ -23,9 +23,9 @@ This function will add a new data entity to the entity object given as parameter
 }
 \examples{
 data(entities)
-test_entities <- entity(object = entities$methylation,
+entity_obj <- entity(object = entities$methylation,
                           layer = "methylation")
-test_entities <- add(object = test_entities,
+entity_obj <- add(object = entity_obj,
                    layer = "genexpr",
                    data = entities$genexpr)
 }

@@ -7,11 +7,12 @@
 #' @export
 #'
 #' @examples
-#' my_varselectarg <- varselectarg(object = list(probability = TRUE),
+#' my_varselectarg <- varselectarg(object = list(type = "probability",
+#'                                         mtry.prop = 0.4),
 #'                           layer = "methylation")
 varselectarg <- function(object, layer){
   if(!missing(layer)&!(missing(object))){
-    object <- list(layer = object)
+    object <- list(object)
     names(object) <- layer
   } else {
     object <- list()
@@ -31,11 +32,11 @@ varselectarg <- function(object, layer){
 #' @export
 #'
 #' @examples
-#' test_varselectarg <- lrnarg(object = list(probability = TRUE),
-#'                           layer = "methylation")
+#' test_varselectarg <- varselectarg(object = list(probability = TRUE),
+#'                          layer = "methylation")
 #' test_varselectarg <- add(object = test_varselectarg,
-#'                    layer = "genexpr",
-#'                    list(probability = TRUE))
+#'                   layer = "genexpr",
+#'                   param = list(probability = TRUE))
 add.varselectarg <- function(object, layer, param, ...){
   if(!is.list(param)){
     stop("Argument 'param' must be a list.")
@@ -47,8 +48,9 @@ add.varselectarg <- function(object, layer, param, ...){
     if(layer %in% names(object)){
       stop("Existing entity for the given layer. Please remove it first.")
     } else {
-      object <- c(object, param)
-      names(object)[length(object)] <- layer
+      names_obj <- names(object)
+      object <- c(object, list(param))
+      names(object) <- c(names_obj, layer)
     }
   }
   class(object) <- class_obj
@@ -84,22 +86,4 @@ remove.lrnarg <- function(object, layer, ...){
     }
   }
   return(object)
-}
-
-#' Print object of class varselectarg.
-#'
-#' @param x object to be printed.
-#' @param ... More arguments to be passed to further function.
-#'
-#' @export
-#'
-#' @examples
-#' test_varselectarg <- varselectarg(object = list(probability = TRUE),
-#'                           layer = "methylation")
-#' test_varselectarg <- add(object = test_varselectarg,
-#'                    layer = "genexpr",
-#'                    list(probability = TRUE))
-#' print(test_varselectarg)
-print.varselectarg <- function(x, ...){
-  return(x)
 }
