@@ -1,6 +1,3 @@
-[![Travis Build Status](https://travis-ci.org/imbs-hl/fuseMLR.svg?branch=master)](https://travis-ci.org/imbs-hl/survivalsvm)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/imbs-hl/fuseMLR?branch=master&svg=true)](https://ci.appveyor.com/project/fouodo/fuseMLR)
-[![Coverage Status](https://coveralls.io/repos/github/imbs-hl/fuseMLR/badge.svg?branch=master)](https://coveralls.io/github/imbs-hl/fuseMLR?branch=master)
 ### fuseMLR
 Cesaire J. K. Fouodo
 
