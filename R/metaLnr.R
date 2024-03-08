@@ -4,7 +4,7 @@
 #' @param target The target variables.
 #' @param learner The name of the to be called.
 #' @param learner_args Arguments to be passed to the learner function.
-#' @param var_selec The function name to be called for variable selection. Do not set this argument to avoid variable selection step.
+#' @param var_selec The function name to be called for variable selection. Do not set (or set to NULL) this argument to avoid variable selection step.
 #' @param aggregation The aggregation function to built the final learner.
 #' @param aggregation_args The arguments of the aggregation function.
 #' @param var_selec_arg Arguments to be passed to the variable selection function.
@@ -67,7 +67,7 @@
 #' my_meta_predictions <- predict(object = my_meta_lnr, data = test_entities)
 #' print(my_meta_predictions)
 #' ## Brier score
-#' print(mean((my_meta_predictions$predictions[ , 1] - (test_disease == 2))^2))
+#' print(mean((my_meta_predictions$meta_pred$predictions[ , 1] - (test_disease == 2))^2))
 #'
 meta_lnr <- function(data,
                       target,
@@ -78,7 +78,7 @@ meta_lnr <- function(data,
                       aggregation = "ranger.cved",
                       aggregation_args = list()){
   ## Step 1: Generate multilayer models
-  multilrn <- if(!missing(var_selec)) {
+  multilrn <- if(!missing(var_selec) & !is.null(var_selec)) {
     message("Layer models with variable selection.\n")
     multiLearner(data = data,
                  target = target,
@@ -93,6 +93,7 @@ meta_lnr <- function(data,
                  learner = learner,
                  learner_args = learner_args)
   }
+  ## ToDo review or remove this code
   data <- lapply(X = multilrn, FUN = function(lrn){
     return(lrn$data)
   })

@@ -24,7 +24,7 @@ meta_lnr(
 
 \item{learner_args}{Arguments to be passed to the learner function.}
 
-\item{var_selec}{The function name to be called for variable selection. Do not set this argument to avoid variable selection step.}
+\item{var_selec}{The function name to be called for variable selection. Do not set (or set to NULL) this argument to avoid variable selection step.}
 
 \item{var_selec_arg}{Arguments to be passed to the variable selection function.}
 
@@ -76,16 +76,16 @@ varselectarg_obj <- add(object = varselectarg_obj,
                          param = list(type = "probability", mtry.prop = 0.3))
 ## Train layer and meta learner
 my_meta_lnr <- meta_lnr(data = entity_obj,
-                         target = disease,
-                         learner = "ranger",
-                         learner_args = lrnarg_obj,
-                         var_selec = "Boruta_ext",
-                         var_selec_arg = varselectarg_obj,
-                         aggregation = ranger.cved,
-                         aggregation_args = list(validation = "createFolds",
-                                                 validation_args = list(),
-                                                 final_learner = "ranger",
-                                                 final_learner_args = list(mtry = 1,
+                       target = disease,
+                       learner = "ranger",
+                       learner_args = lrnarg_obj,
+                       var_selec = "Boruta_ext",
+                       var_selec_arg = varselectarg_obj,
+                       aggregation = ranger.cved,
+                       aggregation_args = list(validation = "createFolds",
+                                              validation_args = list(),
+                                              final_learner = "ranger",
+                                              final_learner_args = list(mtry = 1,
                                                                            probability = TRUE)))
 ## Predict using the meta learner
 data(test_entities)
@@ -93,6 +93,6 @@ data(test_disease)
 my_meta_predictions <- predict(object = my_meta_lnr, data = test_entities)
 print(my_meta_predictions)
 ## Brier score
-print(mean((my_meta_predictions$predictions[ , 1] - (test_disease == 2))^2))
+print(mean((my_meta_predictions$meta_pred$predictions[ , 1] - (test_disease == 2))^2))
 
 }

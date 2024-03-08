@@ -22,7 +22,7 @@ multiLearner(
 
 \item{learner_args}{The arguments to be passed to learner.}
 
-\item{var_selec}{The name of the variable selection method.}
+\item{var_selec}{The name of the variable selection method. Set it to NULL for no variable selection step.}
 
 \item{var_selec_arg}{The arguments to be passed to the variable selection method.}
 }
@@ -79,7 +79,7 @@ my_multiLearner <- multiLearner(data = entity_obj,
                                 target = disease,
                                 learner = "ranger",
                                 learner_args = lrnarg_obj,
-                                var_selec = "Boruta_ext",
+                                var_selec = NULL,
                                 var_selec_arg = varselectarg_obj)
 ## Predict using the meta learner.
 data(test_entities)

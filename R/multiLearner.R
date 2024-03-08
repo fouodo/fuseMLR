@@ -8,7 +8,7 @@
 #' @param target The target variables.
 #' @param learner The name of the learner to be called.
 #' @param learner_args The arguments to be passed to learner.
-#' @param var_selec The name of the variable selection method.
+#' @param var_selec The name of the variable selection method. Set it to NULL for no variable selection step.
 #' @param var_selec_arg The arguments to be passed to the variable selection method.
 #'
 #' @return Object of class \code{multiLearner} containing list elements:
@@ -61,7 +61,7 @@
 #'                                 target = disease,
 #'                                 learner = "ranger",
 #'                                 learner_args = lrnarg_obj,
-#'                                 var_selec = "Boruta_ext",
+#'                                 var_selec = NULL,
 #'                                 var_selec_arg = varselectarg_obj)
 #' ## Predict using the meta learner.
 #' data(test_entities)
@@ -73,7 +73,7 @@ multiLearner <- function(data,
                          var_selec = "Boruta",
                          var_selec_arg = list()) {
   ## Step 1: Variable selection.
-  if(!missing(var_selec)) {
+  if((!missing(var_selec)) & (!is.null(var_selec))) {
     ## Variable selection required.
     message("Variable selection.\n")
     var_select_res <- multiVarSelect(data = data,
@@ -101,7 +101,7 @@ multiLearner <- function(data,
           }
         }
       }
-      entity <- filtered_data[[i]][ , selected]
+      entity <- filtered_data[[i]][ , selected == 1]
       return(entity)
     }, my_var_select_res = var_select_res, filtered_data = data)
     names(data) <- data_names
@@ -115,7 +115,9 @@ multiLearner <- function(data,
   } else {
     ## No variable selection required.
     var_select_res <- lapply(1:length(data), function(i){
-      rep(1, ncol(data[[i]]))
+      tmp <- rep(1, ncol(data[[i]]))
+      ## Re-format selected variable object.
+      list(selected_var = list(info = list(selected = tmp)))
     })
     data <- data
   }

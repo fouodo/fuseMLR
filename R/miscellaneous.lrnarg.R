@@ -48,7 +48,6 @@ add.lrnarg <- function(object, layer, param, ...){
       stop("Existing entity for the given layer. Please remove it first.")
     } else {
       names_obj <- names(object)
-      print(names_obj)
       object <- c(object, list(param))
       names(object) <- c(names_obj, layer)
     }
