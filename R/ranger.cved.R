@@ -105,7 +105,9 @@ ranger.cved <- function(multilrn,
   x$fold <- NULL
   x$target <- NULL
   final_learner_args$x <- as.matrix(x)
-  final_learner_args$y <- predict_entities$target
+  # final_learner_args$y <- predict_entities$target
+  final_learner_args$y <- target[unlist(indexes)]
+  print(cbind(x, target[unlist(indexes)]))
   ## Set arguments of final learner to default arguments if not provided.
   final_learner_args <- if(!length(final_learner_args)){
     formals(final_learner)
